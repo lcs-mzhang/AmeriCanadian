@@ -8,7 +8,22 @@ import Foundation
 // INPUT
 
 // Global variable, tracks how many words we can expect to have to translate
-var countOfExpectedWordsToTranslate = 3
+var expectedWords = 0
+
+while true {
+    print("How many words will be provided?")
+    guard let givenInput = readLine() else {
+        continue
+    }
+    guard let integerInput = Int(givenInput) else {
+        continue
+    }
+    if integerInput < 0 || integerInput > 10 {
+        continue
+    }
+    expectedWords = integerInput
+    break
+}
 
 // Write a loop to actually collect the expected count of words to be translated from user
 // e.g.: write the rest of the INPUT section
@@ -16,29 +31,11 @@ var countOfExpectedWordsToTranslate = 3
 
 // PROCESS & OUTPUT
 
-// NOTE:
-//
-// Some example code that may be useful
-
-// Start with a word
-var word = "tour"
-
-// Check to see if the word is "American" or not
-let isAmerican = word.hasSuffix("or")
-print("Is this word American? \(isAmerican)")
-
-// Reverse the letters of the word
-var reversedWord = String(word.reversed())
-print("The reversed word is: \(reversedWord)")
-
-// Now put things back the way they were to start
-var originalWord = String(reversedWord.reversed())
-print("The reversed word, reversed again is: \(originalWord)")
-
 // Collect the words to be translated
-for counter in 1...countOfExpectedWordsToTranslate {
+for counter in 1...expectedWords {
     
     // Prompt for a word
+    var translatedWord = ""
     print("Enter word #\(counter):")
     
     // Get the input (use guard-let to guarantee it is not nil)
@@ -48,9 +45,18 @@ for counter in 1...countOfExpectedWordsToTranslate {
         continue
     }
     
-    // Add your logic here...
-    // Determine if word is "American" and translate if necessary
-    print("The given input was: \(givenInput)")
+    let word = givenInput
+    var reversedWord = String(word.reversed())
     
+    if word.count >= 4 && word.hasSuffix("or") {
+        for _ in 1...2 {
+            reversedWord.remove(at: reversedWord.startIndex)
+        }
+        translatedWord = String(reversedWord.reversed())
+        translatedWord += "our"
+    } else {
+        translatedWord = word
+    }
+    print("The translation is \(translatedWord).")
 }
 
