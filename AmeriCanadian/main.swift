@@ -14,13 +14,13 @@ while true {
     print("How many words will be provided?")
     guard let givenInput = readLine() else {
         continue
-    }
+    } //filter out nil input. if nil input is given, reprompt until valid input is received
     guard let integerInput = Int(givenInput) else {
         continue
-    }
+    } //filter out non-integer input. if non-integer input is given, reprompt until valid input is received
     if integerInput < 0 || integerInput > 10 {
         continue
-    }
+    } //filter out integer input that is less than 0 or more than 10
     expectedWords = integerInput
     break
 }
@@ -46,16 +46,16 @@ for counter in 1...expectedWords {
     }
     
     let word = givenInput
-    var reversedWord = String(word.reversed())
+    var reversedWord = String(word.reversed()) //reverse the input and convert it to a string
     
-    if word.count >= 4 && word.hasSuffix("or") {
+    if word.count >= 4 && word.hasSuffix("or") { //detects american words
         for _ in 1...2 {
             reversedWord.remove(at: reversedWord.startIndex)
-        }
+        } //if the word is american, remove the last two letters(or)
         translatedWord = String(reversedWord.reversed())
-        translatedWord += "our"
+        translatedWord += "our" //add "our" to the end of the translated word
     } else {
-        translatedWord = word
+        translatedWord = word //if the word is not american or does not end with "or", leave it alone
     }
     print("The translation is \(translatedWord).")
 }
